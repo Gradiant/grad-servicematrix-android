@@ -1,7 +1,6 @@
 plugins {
     kotlin("jvm") version "1.5.10"
     `maven-publish`
-    java
 }
 
 group = "id.walt.servicematrix"
@@ -9,14 +8,6 @@ version = "1.0-SNAPSHOT"
 
 repositories {
     mavenCentral()
-
-    maven {
-        setUrl("https://maven.pkg.jetbrains.space/walt-id/p/servicematrix/maven")
-        credentials {
-            username = "$username"
-            password = "$password"
-        }
-    }
 }
 
 dependencies {
@@ -26,20 +17,23 @@ dependencies {
 
 publishing {
     publications {
-        create<MavenPublication>("maven") {
-            groupId = "id.walt.servicematrix"
-            artifactId = "servicematrix"
-            version = "1.0"
-
+        create<MavenPublication>("mavenJava") {
+            pom {
+                name.set("Walt.ID Service-Matrix")
+                description.set("Kotlin/Java library for service registration.")
+                url.set("https://walt.id")
+            }
             from(components["java"])
         }
     }
+
     repositories {
         maven {
-            setUrl("https://maven.pkg.jetbrains.space/walt-id/p/servicematrix/maven")
+            url = uri("https://maven.letstrust.io/repository/waltid/")
+
             credentials {
-                username = "$username"
-                password = "$password"
+                username = "letstrust-build"
+                password = "naidohTeiraG9ouzoo0"
             }
         }
     }
