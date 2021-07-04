@@ -1,5 +1,6 @@
 package id.walt.servicematrix
 
+import id.walt.servicematrix.exceptions.UnimplementedServiceException
 import kotlin.reflect.KClass
 
 abstract class BaseService {
@@ -17,5 +18,6 @@ object ServiceRegistry {
         services[serviceType] = serviceImplementation
     }
 
-    inline fun <reified Service : BaseService> getService(): Service = (services[Service::class] as Service)
+    inline fun <reified Service : BaseService> getService(): Service =
+        (services[Service::class] ?: throw UnimplementedServiceException(Service::class.qualifiedName)) as Service
 }
