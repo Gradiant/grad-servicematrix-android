@@ -4,7 +4,7 @@ import id.walt.servicematrix.exceptions.UnimplementedServiceException
 import kotlin.reflect.KClass
 
 abstract class BaseService {
-    protected open val implementation: BaseService get() = throw NotImplementedError()
+    abstract val implementation: BaseService
 }
 
 object ServiceRegistry {
