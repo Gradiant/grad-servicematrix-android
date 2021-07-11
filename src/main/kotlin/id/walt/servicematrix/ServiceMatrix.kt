@@ -5,6 +5,7 @@ import java.io.File
 import java.util.*
 import kotlin.reflect.KClass
 import kotlin.reflect.full.createInstance
+import kotlin.reflect.full.primaryConstructor
 
 /**
  * Manager to load service definitions from Java property files and subsequently
@@ -30,18 +31,37 @@ class ServiceMatrix() {
         serviceList.putAll(entries.associate { it.value.toString() to it.key.toString() })
     }
 
+    private fun createImplementationInstance(implementationClass: String): BaseService =
+        getKClassByName(implementationClass).createInstance() as BaseService
+
+    private fun createConfiguredImplementationInstance(
+        implementationClass: String,
+        configurationPath: String
+    ): BaseService =
+        getKClassByName(implementationClass).primaryConstructor!!.call(configurationPath) as BaseService
+
     /**
      * Registers all loaded service definitions in the [ServiceRegistry].
      */
     fun registerServiceDefinitions() {
-        serviceList.forEach { (implementationClass, serviceClass) ->
+        serviceList.forEach { (implementationString, serviceString) ->
             try {
-                val implementation: BaseService = getKClassByName(implementationClass).createInstance() as BaseService
-                val service: KClass<out BaseService> = getKClassByName(serviceClass) as KClass<out BaseService>
+                val service: KClass<out BaseService> = getKClassByName(serviceString) as KClass<out BaseService>
+                val implementation = when {
+                    implementationString.contains(':') -> {
+                        implementationString.split(':').let { splittedImplementationString ->
+                            val implementationClass = splittedImplementationString[0]
+                            val configurationPath = splittedImplementationString[1]
+
+                            createConfiguredImplementationInstance(implementationClass, configurationPath)
+                        }
+                    }
+                    else -> createImplementationInstance(implementationString)
+                }
 
                 ServiceRegistry.registerService(implementation, service)
             } catch (e: InstantiationException) {
-                throw InstantiationException("ServiceMatrix: Failed to initialize implementation \"$implementationClass\" for \"$serviceClass\"!")
+                throw InstantiationException("ServiceMatrix: Failed to initialize implementation \"$implementationString\" for \"$serviceString\"!")
             }
         }
     }
