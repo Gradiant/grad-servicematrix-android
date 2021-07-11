@@ -1,5 +1,5 @@
 import id.walt.servicematrix.BaseService
-import id.walt.servicematrix.ReflectionUtils.getKClassByName
+import id.walt.servicematrix.utils.ReflectionUtils.getKClassByName
 import id.walt.servicematrix.ServiceProvider
 import id.walt.servicematrix.ServiceRegistry
 import io.kotest.core.spec.style.StringSpec

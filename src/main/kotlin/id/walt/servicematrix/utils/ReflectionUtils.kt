@@ -1,4 +1,4 @@
-package id.walt.servicematrix
+package id.walt.servicematrix.utils
 
 /**
  * General reflection utilities used by letstrust-ssi-core

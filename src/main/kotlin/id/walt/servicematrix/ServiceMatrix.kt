@@ -1,6 +1,6 @@
 package id.walt.servicematrix
 
-import id.walt.servicematrix.ReflectionUtils.getKClassByName
+import id.walt.servicematrix.utils.ReflectionUtils.getKClassByName
 import java.io.File
 import java.util.*
 import kotlin.reflect.KClass

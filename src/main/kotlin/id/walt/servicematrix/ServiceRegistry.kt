@@ -3,10 +3,6 @@ package id.walt.servicematrix
 import id.walt.servicematrix.exceptions.UnimplementedServiceException
 import kotlin.reflect.KClass
 
-abstract class BaseService {
-    abstract val implementation: BaseService
-}
-
 object ServiceRegistry {
     val services = HashMap<KClass<out BaseService>, BaseService>()
 
