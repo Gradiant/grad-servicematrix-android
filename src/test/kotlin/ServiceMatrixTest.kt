@@ -2,24 +2,28 @@ import id.walt.servicematrix.BaseService
 import id.walt.servicematrix.ServiceMatrix
 import id.walt.servicematrix.ServiceProvider
 import id.walt.servicematrix.ServiceRegistry
-import io.kotest.core.spec.style.FunSpec
+import io.kotest.core.spec.style.StringSpec
 import io.kotest.engine.spec.tempfile
 import io.kotest.matchers.shouldBe
 
-class ServiceMatrixTest : FunSpec({
+class ServiceMatrixTest : StringSpec({
 
     val file1 = tempfile()
     val file2 = tempfile()
 
-    file1.writeText("""
+    file1.writeText(
+        """
         ServiceMatrixTestService=ServiceMatrixTestServiceImpl1
-    """.trimIndent())
+        """.trimIndent()
+    )
 
-    file2.writeText("""
+    file2.writeText(
+        """
         ServiceMatrixTestService=ServiceMatrixTestServiceImpl2
-    """.trimIndent())
+        """.trimIndent()
+    )
 
-    test("ServiceMatrix reading") {
+    "ServiceMatrix reading" {
         ServiceMatrix(file1.absolutePath)
 
         val service = ServiceMatrixTestService.getService()
