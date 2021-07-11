@@ -32,6 +32,14 @@ class SimpleTestServiceImpl1 : SimpleTestService() {
 }
 ```
 
+#### Implementations can be inherited from implementations too!
+
+```kotlin
+class InheritedFromImpl1 : SimpleTestServiceImpl1() {
+    override fun function2() = "The better ${super.function2()}"
+}
+```
+
 ### Inject them *at runtime!*
 Using code:
 ```kotlin
