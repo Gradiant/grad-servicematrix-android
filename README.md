@@ -47,10 +47,12 @@ ServiceRegistry.registerService<SimpleTestService>(SimpleTestServiceImpl1())
 ```
 
 Or using a service-matrix file:
-```
+```properties
+# service-matrix.properties
 ServiceMatrixTestService=ServiceMatrixTestServiceImpl1
 ```
 ```kotlin
+// Load "service-matrix.properties"
 ServiceMatrix("service-matrix.properties")
 ```
 
