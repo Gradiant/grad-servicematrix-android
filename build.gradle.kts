@@ -1,4 +1,5 @@
 plugins {
+    jacoco
     kotlin("jvm") version "1.5.20"
     `maven-publish`
 }
@@ -51,5 +52,13 @@ publishing {
                 password = "naidohTeiraG9ouzoo0"
             }
         }
+    }
+}
+
+jacoco.toolVersion = "0.8.7"
+
+tasks.jacocoTestReport {
+    reports {
+        xml.isEnabled = true
     }
 }

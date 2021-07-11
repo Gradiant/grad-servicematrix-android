@@ -32,7 +32,8 @@ class ServiceMatrix() {
     }
 
     private fun createImplementationInstance(implementationClass: String): BaseService =
-        getKClassByName(implementationClass).createInstance() as BaseService
+        getKClassByName(implementationClass).createInstance() as? BaseService
+            ?: throw ClassCastException("$implementationClass is not a valid BaseService")
 
     private fun createConfiguredImplementationInstance(
         implementationClass: String,
@@ -45,24 +46,20 @@ class ServiceMatrix() {
      */
     fun registerServiceDefinitions() {
         serviceList.forEach { (implementationString, serviceString) ->
-            try {
-                val service: KClass<out BaseService> = getKClassByName(serviceString) as KClass<out BaseService>
-                val implementation = when {
-                    implementationString.contains(':') -> {
-                        implementationString.split(':').let { splittedImplementationString ->
-                            val implementationClass = splittedImplementationString[0]
-                            val configurationPath = splittedImplementationString[1]
+            val service: KClass<out BaseService> = getKClassByName(serviceString) as KClass<out BaseService>
+            val implementation = when {
+                implementationString.contains(':') -> {
+                    implementationString.split(':').let { splittedImplementationString ->
+                        val implementationClass = splittedImplementationString[0]
+                        val configurationPath = splittedImplementationString[1]
 
-                            createConfiguredImplementationInstance(implementationClass, configurationPath)
-                        }
+                        createConfiguredImplementationInstance(implementationClass, configurationPath)
                     }
-                    else -> createImplementationInstance(implementationString)
                 }
-
-                ServiceRegistry.registerService(implementation, service)
-            } catch (e: InstantiationException) {
-                throw InstantiationException("ServiceMatrix: Failed to initialize implementation \"$implementationString\" for \"$serviceString\"!")
+                else -> createImplementationInstance(implementationString)
             }
+
+            ServiceRegistry.registerService(implementation, service)
         }
     }
 

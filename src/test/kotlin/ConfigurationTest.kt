@@ -1,4 +1,5 @@
 import id.walt.servicematrix.*
+import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.engine.spec.tempfile
 import io.kotest.matchers.shouldBe
@@ -68,6 +69,16 @@ class ConfigurationTest : StringSpec({
 
         service.someInfoText() shouldBe "This is Implementation 2"
     }
+
+    "Error on invalid configuration access" {
+        ServiceRegistry.registerService<ConfigurationTestService>(ConfigurationTestServiceImpl3())
+
+        val service = ConfigurationTestService.getService()
+
+        shouldThrow<IllegalStateException> {
+            println(service.someInfoText())
+        }
+    }
 })
 
 
@@ -97,4 +108,8 @@ class ConfigurationTestServiceImpl2(configurationPath: String) : ConfigurationTe
     override val configuration: Configuration2 = fromConfiguration(configurationPath)
 
     override fun someInfoText(): String = "This is Implementation ${configuration.someConfig2Things.id}"
+}
+
+class ConfigurationTestServiceImpl3() : ConfigurationTestService() {
+    override fun someInfoText(): String = configuration.hashCode().toString()
 }

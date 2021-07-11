@@ -1,16 +1,20 @@
 # ServiceMatrix, by WaltID
 
-_Interchange service-implementation & service-configuration at runtime (using dynamic dependency injection), for Kotlin._  
+_Interchange service-implementation & service-configuration at runtime (using dynamic dependency injection), for
+Kotlin._
 
 All the services, the implementations, the configurations, etc. are typesafe, as all things should be.
 
-Maintainer: @KBurgmann
+**Maintainer: @KBurgmann**
 
 ## Quickstart
+
 ### Setup
+
 Add the dependency using Maven or Gradle.
 
 ### Create your first service
+
 ```kotlin
 abstract class SimpleTestService : BaseService() {
     override val implementation get() = ServiceRegistry.getService<SimpleTestService>()
@@ -25,6 +29,7 @@ abstract class SimpleTestService : BaseService() {
 ```
 
 ### Create your first service *implementation*
+
 ```kotlin
 class SimpleTestServiceImpl1 : SimpleTestService() {
     override fun function1() = 1
@@ -41,22 +46,27 @@ class InheritedFromImpl1 : SimpleTestServiceImpl1() {
 ```
 
 ### Inject them *at runtime!*
+
 Using code:
+
 ```kotlin
 ServiceRegistry.registerService<SimpleTestService>(SimpleTestServiceImpl1())
 ```
 
 Or using a service-matrix file:
+
 ```properties
 # service-matrix.properties
 ServiceMatrixTestService=ServiceMatrixTestServiceImpl1
 ```
+
 ```kotlin
 // Load "service-matrix.properties"
 ServiceMatrix("service-matrix.properties")
 ```
 
 ### Want your implementation to have configuration too?
+
 Your new service implementation:
 
 ```kotlin
@@ -71,6 +81,7 @@ class ConfigurationTestServiceImpl1(configurationPath: String) : ConfigurationTe
 ```
 
 And the matching config file:
+
 ```hocon
 env: "staging"
         
@@ -82,6 +93,7 @@ someExtraThings: {
 ### At-runtime reconfiguration
 
 For the following service:
+
 ```kotlin
 abstract class ReregistrationTestService : BaseService() {
     override val implementation get() = ServiceRegistry.getService<ReregistrationTestService>()
@@ -103,6 +115,7 @@ class ReregistrationTestServiceImpl2 : ReregistrationTestService() {
 ```
 
 The output will be:
+
 ```kotlin
 // Register implementation 1
 ServiceRegistry.registerService<ReregistrationTestService>(ReregistrationTestServiceImpl1())
