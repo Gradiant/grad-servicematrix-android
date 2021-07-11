@@ -81,19 +81,18 @@ abstract class ConfigurationTestService : BaseService() {
     }
 }
 
-data class ThingsForConfiguration1(val name: String)
-data class Configuration1(val env: String, val thingsForConfiguration1: ThingsForConfiguration1) : ServiceConfiguration
 class ConfigurationTestServiceImpl1(configurationPath: String) : ConfigurationTestService() {
+    data class ThingsForConfiguration1(val name: String)
+    data class Configuration1(val env: String, val thingsForConfiguration1: ThingsForConfiguration1) : ServiceConfiguration
 
-    override var configuration: Configuration1 = fromConfiguration(configurationPath)
-
+    override val configuration: Configuration1 = fromConfiguration(configurationPath)
 
     override fun someInfoText(): String = configuration.thingsForConfiguration1.name
 }
 
-data class SomeConfig2Things(val id: Int)
-data class Configuration2(val env: String, val someConfig2Things: SomeConfig2Things) : ServiceConfiguration
 class ConfigurationTestServiceImpl2(configurationPath: String) : ConfigurationTestService() {
+    data class SomeConfig2Things(val id: Int)
+    data class Configuration2(val env: String, val someConfig2Things: SomeConfig2Things) : ServiceConfiguration
 
     override val configuration: Configuration2 = fromConfiguration(configurationPath)
 
