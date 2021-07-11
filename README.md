@@ -5,6 +5,8 @@ Kotlin._
 
 All the services, the implementations, the configurations, etc. are typesafe, as all things should be.
 
+As of commit ff82ae5: 100% test coverage according to the JaCoCo coverage report.
+
 **Maintainer: @KBurgmann**
 
 ## Quickstart
