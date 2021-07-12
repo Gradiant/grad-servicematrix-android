@@ -16,7 +16,7 @@ class UnimplementedServiceTest : StringSpec({
 
 
 abstract class UnimplementedService : BaseService() {
-    override val implementation get() = ServiceRegistry.getService<UnimplementedService>()
+    override val implementation get() = serviceImplementation<UnimplementedService>()
 
     open fun function1(): Int = implementation.function1()
 

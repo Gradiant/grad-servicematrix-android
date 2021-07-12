@@ -17,7 +17,7 @@ class ServiceRegistryTests : StringSpec({
 
 
 abstract class ServiceRegistryTestService : BaseService() {
-    override val implementation get() = ServiceRegistry.getService<ServiceRegistryTestService>()
+    override val implementation get() = serviceImplementation<ServiceRegistryTestService>()
 
     open fun function1(): Int = implementation.function1()
     open fun function2(): String = implementation.function2()

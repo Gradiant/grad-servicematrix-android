@@ -52,7 +52,7 @@ class InvalidInstantiationRegistrationTest : StringSpec({
 
 
 abstract class InvalidInstantiationTestService : BaseService() {
-    override val implementation get() = ServiceRegistry.getService<InvalidInstantiationTestService>()
+    override val implementation get() = serviceImplementation<InvalidInstantiationTestService>()
 
     open fun function1(): Int = implementation.function1()
 
@@ -72,6 +72,7 @@ class InvalidInstantiationTestServiceImpl2: BaseService() {
 
 // 3
 abstract class InvalidInstantiationTestService2 {
+    @Suppress("CAST_NEVER_SUCCEEDS")
     val implementation get() = ServiceRegistry.getService<BaseService>() as InvalidInstantiationTestService2
 
     open fun function1(): Int = implementation.function1()

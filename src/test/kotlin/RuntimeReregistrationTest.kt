@@ -20,7 +20,7 @@ class RuntimeReregistrationTest : StringSpec({
 
 
 abstract class ReregistrationTestService : BaseService() {
-    override val implementation get() = ServiceRegistry.getService<ReregistrationTestService>()
+    override val implementation get() = serviceImplementation<ReregistrationTestService>()
 
     open fun function1(): Int = implementation.function1()
 

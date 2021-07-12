@@ -19,7 +19,7 @@ Add the dependency using Maven or Gradle.
 
 ```kotlin
 abstract class SimpleTestService : BaseService() {
-    override val implementation get() = ServiceRegistry.getService<SimpleTestService>()
+    override val implementation get() = serviceImplementation<SimpleTestService>()
 
     open fun function1(): Int = implementation.function1()
     open fun function2(): String = implementation.function2()
@@ -98,7 +98,7 @@ For the following service:
 
 ```kotlin
 abstract class ReregistrationTestService : BaseService() {
-    override val implementation get() = ServiceRegistry.getService<ReregistrationTestService>()
+    override val implementation get() = serviceImplementation<ReregistrationTestService>()
 
     open fun function1(): Int = implementation.function1()
 

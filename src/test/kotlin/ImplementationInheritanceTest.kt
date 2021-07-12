@@ -23,7 +23,7 @@ class ImplementationInheritanceTest : StringSpec({
 
 
 abstract class InheritanceTestService : BaseService() {
-    override val implementation get() = ServiceRegistry.getService<InheritanceTestService>()
+    override val implementation get() = serviceImplementation<InheritanceTestService>()
 
     open fun function1(): Int = implementation.function1()
     open fun function2(): String = implementation.function2()

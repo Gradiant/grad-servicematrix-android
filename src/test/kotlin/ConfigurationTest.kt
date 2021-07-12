@@ -83,7 +83,7 @@ class ConfigurationTest : StringSpec({
 
 
 abstract class ConfigurationTestService : BaseService() {
-    override val implementation get() = ServiceRegistry.getService<ConfigurationTestService>()
+    override val implementation get() = serviceImplementation<ConfigurationTestService>()
 
     open fun someInfoText(): String = implementation.someInfoText()
 
