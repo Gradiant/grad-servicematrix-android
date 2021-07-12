@@ -20,10 +20,23 @@ abstract class BaseService {
     open val configuration: ServiceConfiguration?
         get() = error("You have not defined a configuration for this service.")
 
+    /**
+     * override with your own Service, inject with
+     * `= serviceImplementation<YourCustomService>()`
+     */
     abstract val implementation: BaseService
 
+    /**
+     * Wrapper around ServiceRegistry.getService()
+     * @see ServiceRegistry.getService
+     */
     inline fun <reified Service : BaseService> serviceImplementation(): Service = ServiceRegistry.getService()
 
+    /**
+     * Inject configuration
+     * @param configurationPath File path to the service configuration, should be injected using the primary constructor
+     * @see configuration
+     */
     protected inline fun <reified T : ServiceConfiguration> fromConfiguration(configurationPath: String) =
         ConfigLoader().loadConfigOrThrow<T>(File(configurationPath))
 }
