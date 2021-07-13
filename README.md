@@ -92,6 +92,23 @@ someExtraThings: {
 }
 ```
 
+And then register them with code:
+```kotlin
+ServiceRegistry.registerService<SimpleTestService>(SimpleTestServiceImpl1("myConfig.conf"))
+```
+
+Or using a service-matrix file:
+```properties
+# service-matrix.properties
+ServiceMatrixTestService=ServiceMatrixTestServiceImpl1:myConfig.conf
+```
+
+```kotlin
+// Load "service-matrix.properties"
+ServiceMatrix("service-matrix.properties")
+```
+
+
 ### At-runtime reconfiguration
 
 For the following service:
