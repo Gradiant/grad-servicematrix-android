@@ -59,7 +59,9 @@ publishing {
 }
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-    kotlinOptions.jvmTarget = "13"
+    //ANDROID PORT
+    kotlinOptions.jvmTarget = "11"
+    //ANDROID PORT
 }
 
 jacoco.toolVersion = "0.8.7"

@@ -163,3 +163,9 @@ println(service.function1()) // 2
 ## License
 
 The Service Matrix project by walt.id is Open Source software released under the [Apache 2.0 license](https://www.apache.org/licenses/LICENSE-2.0.html).
+
+# Android Port
+
+## Changes
+
+1. build.gradle.kts -> JvmTarget for kotlin must be "11".
