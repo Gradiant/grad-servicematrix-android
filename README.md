@@ -169,3 +169,5 @@ The Service Matrix project by walt.id is Open Source software released under the
 ## Changes
 
 1. build.gradle.kts -> JvmTarget for kotlin must be "11".
+
+2. ServiceMatrix -> Constructor and its called functions changed argument from a file path to a input stream due to the android environment nature. The config file service-matrix.properties will be located in the resource folder of the Android Project.

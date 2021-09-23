@@ -2,6 +2,9 @@ package id.walt.servicematrix
 
 import id.walt.servicematrix.utils.ReflectionUtils.getKClassByName
 import java.io.File
+//ANDROID PORT
+import java.io.InputStream
+//ANDROID PORT
 import java.util.*
 import kotlin.reflect.KClass
 import kotlin.reflect.full.createInstance
@@ -26,8 +29,10 @@ class ServiceMatrix() {
      *
      * @param filePath The path to the service definition file as String
      */
-    fun loadServiceDefinitions(filePath: String) = Properties().apply {
-        load(File(filePath).reader())
+    //ANDROID PORT
+    fun loadServiceDefinitions(inputStream: InputStream) = Properties().apply {
+        load(inputStream)
+    //ANDROID PORT
         serviceList.putAll(entries.associate { it.value.toString() to it.key.toString() })
     }
 
@@ -68,8 +73,10 @@ class ServiceMatrix() {
      *
      * @param filePath The path to the service definition file as String
      */
-    constructor(filePath: String) : this() {
-        loadServiceDefinitions(filePath)
+    //ANDROID PORT
+    constructor(inputStream: InputStream) : this() {
+        loadServiceDefinitions(inputStream)
+    //ANDROID PORT
         registerServiceDefinitions()
     }
 }
