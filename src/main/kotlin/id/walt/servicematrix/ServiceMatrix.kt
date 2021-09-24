@@ -1,9 +1,10 @@
 package id.walt.servicematrix
 
 import id.walt.servicematrix.utils.ReflectionUtils.getKClassByName
-import java.io.File
 //ANDROID PORT
+import org.spongycastle.jce.provider.BouncyCastleProvider
 import java.io.InputStream
+import java.security.Security
 //ANDROID PORT
 import java.util.*
 import kotlin.reflect.KClass
@@ -75,6 +76,8 @@ class ServiceMatrix() {
      */
     //ANDROID PORT
     constructor(inputStream: InputStream) : this() {
+        Security.removeProvider("BC")
+        Security.addProvider(BouncyCastleProvider())
         loadServiceDefinitions(inputStream)
     //ANDROID PORT
         registerServiceDefinitions()
