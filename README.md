@@ -172,10 +172,3 @@ The Service Matrix project by walt.id is Open Source software released under the
 
 2. ServiceMatrix -> Constructor and its called functions changed argument from a file path to a input stream due to the android environment nature. The config file service-matrix.properties will be located in the resource folder of the Android Project.
 
-3. build.gradle.kts -> Vanilla BouncyCastle provider cannot be executed in Android, so it must be replaced with SpongyCastle. To do this, the following two dependency lines were added:
-* implementation("com.madgag.spongycastle:prov:1.54.0.0")
-* implementation("com.madgag.spongycastle:pkix:1.54.0.0")
-
-4. ServiceMatrix -> Following point 3, it is needed to remove the current bouncycastle provider in Java Security, and add spongycastle to it.
-
-3. build.gradle.kts -> 
