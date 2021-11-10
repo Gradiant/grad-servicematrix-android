@@ -1,3 +1,15 @@
+# Android ServiceMatrix
+
+This is the Android Ported Version of the Walt.Id ServiceMatrix, developed by Gradiant.
+
+## Changes that were added chronologically
+
+1. build.gradle.kts -> JvmTarget for kotlin must be "11".
+
+2. ServiceMatrix -> Constructor and its called functions changed argument from a file path to a input stream due to the android environment nature. The config file service-matrix.properties will be located in the resource folder of the Android Project.
+
+3. AndroidUtils.kt -> File created to handle ServiceMatrix initialization. The variable androidDataDir is needed to create the directory structure of the wallet inside the absolute path of the Android Application. The variable dataRoot is needed to know the absolute path of the data folder inside the Android Application Directory. This variable replace the dataRoot parameter of fsStore.conf file (Previously mentioned error "No parser for .conf files"). A configuration file that it's needed to be read in runtime doesn't fit well Android, because we would need to write that file in the Android Application Directory to be able to read it later.
+
 # ServiceMatrix, by WaltID
 
 _Interchange service-implementation & service-configuration at runtime (using dynamic dependency injection), for
@@ -164,12 +176,3 @@ println(service.function1()) // 2
 
 The Service Matrix project by walt.id is Open Source software released under the [Apache 2.0 license](https://www.apache.org/licenses/LICENSE-2.0.html).
 
-# Android Port
-
-## Changes
-
-1. build.gradle.kts -> JvmTarget for kotlin must be "11".
-
-2. ServiceMatrix -> Constructor and its called functions changed argument from a file path to a input stream due to the android environment nature. The config file service-matrix.properties will be located in the resource folder of the Android Project.
-
-3. AndroidUtils.kt -> File created to handle ServiceMatrix initialization. The variable androidDataDir is needed to create the directory structure of the wallet inside the absolute path of the Android Application. The variable dataRoot is needed to know the absolute path of the data folder inside the Android Application Directory. This variable replace the dataRoot parameter of fsStore.conf file (Previously mentioned error "No parser for .conf files"). A configuration file that it's needed to be read in runtime doesn't fit well Android, because we would need to write that file in the Android Application Directory to be able to read it later.
