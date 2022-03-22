@@ -1,11 +1,11 @@
 plugins {
     jacoco
-    kotlin("jvm") version "1.5.20"
+    kotlin("jvm") version "1.6.10"
     `maven-publish`
 }
 
 group = "id.walt.servicematrix"
-version = "1.0.1"
+version = "1.1.0"
 
 repositories {
     mavenCentral()
@@ -13,18 +13,18 @@ repositories {
 
 dependencies {
     // Kotlin
-    implementation(kotlin("stdlib"))
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.5.31")
 
     // Reflection
     implementation("org.jetbrains.kotlin:kotlin-reflect:1.5.20")
 
     // Configuration
-    implementation("com.sksamuel.hoplite:hoplite-core:1.4.3")
-    implementation("com.sksamuel.hoplite:hoplite-hocon:1.4.3")
+    implementation("com.sksamuel.hoplite:hoplite-core:1.4.16")
+    implementation("com.sksamuel.hoplite:hoplite-hocon:1.4.16")
 
     // Testing
-    testImplementation("io.kotest:kotest-runner-junit5:4.6.0")
-    testImplementation("io.kotest:kotest-assertions-core:4.6.0")
+    testImplementation("io.kotest:kotest-runner-junit5:5.0.2")
+    testImplementation("io.kotest:kotest-assertions-core:5.0.3")
 }
 
 tasks.withType<Test> {
@@ -35,7 +35,7 @@ publishing {
     publications {
         create<MavenPublication>("mavenJava") {
             pom {
-                name.set("Walt.ID Service-Matrix")
+                name.set("waltid-servicematrix")
                 description.set("Kotlin/Java library for service registration.")
                 url.set("https://walt.id")
             }
@@ -49,8 +49,16 @@ publishing {
 
             val usernameFile = File("secret_maven_username.txt")
             val passwordFile = File("secret_maven_password.txt")
-            val secretMavenUsername = System.getenv()["MAVEN_USERNAME"] ?: if (usernameFile.isFile) { usernameFile.readLines()[0] } else { "" }
-            val secretMavenPassword = System.getenv()["MAVEN_PASSWORD"] ?: if (passwordFile.isFile) { passwordFile.readLines()[0] } else { "" }
+            val secretMavenUsername = System.getenv()["MAVEN_USERNAME"] ?: if (usernameFile.isFile) {
+                usernameFile.readLines()[0]
+            } else {
+                    ""
+                }
+            val secretMavenPassword = System.getenv()["MAVEN_PASSWORD"] ?: if (passwordFile.isFile) {
+                passwordFile.readLines()[0]
+            } else {
+                    ""
+                }
 
             credentials {
                 username = secretMavenUsername
@@ -70,6 +78,6 @@ jacoco.toolVersion = "0.8.7"
 
 tasks.jacocoTestReport {
     reports {
-        xml.isEnabled = true
+        xml.required.set(true)
     }
 }

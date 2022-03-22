@@ -8,7 +8,7 @@ This is the Android Ported Version of the Walt.Id ServiceMatrix, developed by Gr
 
 - Original Walt.ID SSI Kit: https://github.com/walt-id/waltid-ssikit 
 
-## Changes that were added chronologically
+## Changelog
 
 1. build.gradle.kts -> JvmTarget for kotlin must be "11".
 
@@ -16,7 +16,7 @@ This is the Android Ported Version of the Walt.Id ServiceMatrix, developed by Gr
 
 3. AndroidUtils.kt -> File created to handle ServiceMatrix initialization. The variable androidDataDir is needed to create the directory structure of the wallet inside the absolute path of the Android Application. The variable dataRoot is needed to know the absolute path of the data folder inside the Android Application Directory. This variable replace the dataRoot parameter of fsStore.conf file (Previously mentioned error "No parser for .conf files"). A configuration file that it's needed to be read in runtime doesn't fit well Android, because we would need to write that file in the Android Application Directory to be able to read it later.
 
-# ServiceMatrix, by WaltID
+# ServiceMatrix, by walt.id
 
 _Interchange service-implementation & service-configuration at runtime (using dynamic dependency injection), for
 Kotlin._
@@ -33,14 +33,14 @@ As of commit ff82ae5: 100% test coverage according to the JaCoCo coverage report
 
 Add the dependency using Gradle:
 
-    implementation("id.walt.servicematrix:WaltID-ServiceMatrix:1.0.1")
+    implementation("id.walt.servicematrix:WaltID-ServiceMatrix:1.1.0")
     
 or Maven:
 
     <dependency>
         <groupId>id.walt.servicematrix</groupId>
-        <artifactId>WaltID-ServiceMatrix</artifactId>
-        <version>1.0.1</version>
+        <artifactId>waltid-servicematrix</artifactId>
+        <version>1.1.0</version>
     </dependency>
         
 
@@ -94,6 +94,22 @@ ServiceMatrixTestService=ServiceMatrixTestServiceImpl1
 ```kotlin
 // Load "service-matrix.properties"
 ServiceMatrix("service-matrix.properties")
+```
+
++### Define a *default implementation* in code
++Without needing any config file! (extremely useful when using your software as a dependency)
+```kotlin
+abstract class SimpleTestService : BaseService() {
+override val implementation get() = serviceImplementation<SimpleTestService>()
+
+    open fun function1(): Int = implementation.function1()
+    open fun function2(): String = implementation.function2()
+
+    companion object : ServiceProvider {
+       override fun getService() = object : SimpleTestService() {}
+       override fun defaultImplementation() = SimpleTestServiceImpl1()
+    }
+}
 ```
 
 ### Want your implementation to have configuration too?
