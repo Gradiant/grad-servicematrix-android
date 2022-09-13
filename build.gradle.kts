@@ -1,11 +1,11 @@
 plugins {
     jacoco
-    kotlin("jvm") version "1.6.10"
+    kotlin("jvm") version "1.6.21"
     `maven-publish`
 }
 
 group = "id.walt.servicematrix"
-version = "1.1.0"
+version = "1.1.1"
 
 repositories {
     mavenCentral()
@@ -13,18 +13,18 @@ repositories {
 
 dependencies {
     // Kotlin
-    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.5.31")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib:1.6.21")
 
     // Reflection
-    implementation("org.jetbrains.kotlin:kotlin-reflect:1.5.20")
+    implementation("org.jetbrains.kotlin:kotlin-reflect:1.6.21")
 
     // Configuration
-    implementation("com.sksamuel.hoplite:hoplite-core:1.4.16")
-    implementation("com.sksamuel.hoplite:hoplite-hocon:1.4.16")
+    implementation("com.sksamuel.hoplite:hoplite-core:2.1.2")
+    implementation("com.sksamuel.hoplite:hoplite-hocon:2.1.2")
 
     // Testing
-    testImplementation("io.kotest:kotest-runner-junit5:5.0.2")
-    testImplementation("io.kotest:kotest-assertions-core:5.0.3")
+    testImplementation("io.kotest:kotest-runner-junit5:5.3.0")
+    testImplementation("io.kotest:kotest-assertions-core:5.3.0")
 }
 
 tasks.withType<Test> {
@@ -52,13 +52,13 @@ publishing {
             val secretMavenUsername = System.getenv()["MAVEN_USERNAME"] ?: if (usernameFile.isFile) {
                 usernameFile.readLines()[0]
             } else {
-                    ""
-                }
+                ""
+            }
             val secretMavenPassword = System.getenv()["MAVEN_PASSWORD"] ?: if (passwordFile.isFile) {
                 passwordFile.readLines()[0]
             } else {
-                    ""
-                }
+                ""
+            }
 
             credentials {
                 username = secretMavenUsername
@@ -74,7 +74,7 @@ tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
     //ANDROID PORT
 }
 
-jacoco.toolVersion = "0.8.7"
+jacoco.toolVersion = "0.8.8"
 
 tasks.jacocoTestReport {
     reports {

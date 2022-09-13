@@ -33,7 +33,7 @@ As of commit ff82ae5: 100% test coverage according to the JaCoCo coverage report
 
 Add the dependency using Gradle:
 
-    implementation("id.walt.servicematrix:WaltID-ServiceMatrix:1.1.0")
+    implementation("id.walt.servicematrix:waltid-servicematrix:1.1.0")
     
 or Maven:
 
@@ -96,8 +96,8 @@ ServiceMatrixTestService=ServiceMatrixTestServiceImpl1
 ServiceMatrix("service-matrix.properties")
 ```
 
-+### Define a *default implementation* in code
-+Without needing any config file! (extremely useful when using your software as a dependency)
+### Define a *default implementation* in code
+Without needing any config file! (extremely useful when using your software as a dependency)
 ```kotlin
 abstract class SimpleTestService : BaseService() {
 override val implementation get() = serviceImplementation<SimpleTestService>()
@@ -106,8 +106,8 @@ override val implementation get() = serviceImplementation<SimpleTestService>()
     open fun function2(): String = implementation.function2()
 
     companion object : ServiceProvider {
-       override fun getService() = object : SimpleTestService() {}
-       override fun defaultImplementation() = SimpleTestServiceImpl1()
+        override fun getService() = object : SimpleTestService() {}
+        override fun defaultImplementation() = SimpleTestServiceImpl1()
     }
 }
 ```
@@ -197,4 +197,3 @@ println(service.function1()) // 2
 ## License
 
 The Service Matrix project by walt.id is Open Source software released under the [Apache 2.0 license](https://www.apache.org/licenses/LICENSE-2.0.html).
-
